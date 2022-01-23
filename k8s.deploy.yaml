@@ -1,0 +1,41 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: input
+  labels:
+    app: input
+spec:
+  selector:
+    app: input
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: input
+  labels:
+    app: input
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: input
+  template:
+    metadata:
+      labels:
+        app: input
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "input"
+        dapr.io/app-port: "8080"
+    spec:
+      containers:
+      - name: input
+        image: testdanielaaa.azurecr.io/daniel/dapr-blob-input:v1
+        ports:
+        - containerPort: 8080
+        imagePullPolicy: Always

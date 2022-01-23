@@ -1,0 +1,13 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: servicebusinput
+  namespace: default
+spec:
+  type: bindings.azure.servicebusqueues
+  version: v1
+  metadata:
+    - name: connectionString
+      value: "Endpoint=sb://daprtestsvcbus.servicebus.windows.net/;SharedAccessKeyName=test;SharedAccessKey=30nxXS8t7wLBhdEhu9Wp85gxcbcURiEz/G2D7ZEwh5U="
+    - name: queueName
+      value: test
